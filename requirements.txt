@@ -1,4 +1,16 @@
 asgiref==3.2.10
+automium==0.2.6
+automium-web==0.1.1
+click==7.1.2
 Django==3.0.7
+django-crispy-forms==1.9.1
+Flask==1.1.2
+itsdangerous==1.1.0
+Jinja2==2.11.2
+legacy==0.1.6
+MarkupSafe==1.1.1
+Pillow==7.1.2
 pytz==2020.1
 sqlparse==0.3.1
+views==0.3
+Werkzeug==1.0.1
