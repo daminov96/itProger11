@@ -1,0 +1,33 @@
+{% extends 'blog/main.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block main_section %}
+   <div class="form-section">
+        <h2>User account</h2>
+        <div class="media text-muted pt-3">
+            <img class="mr-2 rounded" style="width: 64px; height: 64px;" src="{{ user.profile.img.url }}">
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <strong class="d-block text-gray-dark">@{{ user.username }}</strong>
+                <b>Email:</b> {{ user.email  }}
+            </p>
+        </div>
+        <h2>change user info</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token  %}
+            {{ update_user|crispy}}
+            {{ img_profile|crispy}}
+           <button type="submit" class="btn btn-outline-warning">Update the date</button>
+        </form>
+   </div>
+{% endblock main_section %}
+{% block aside_news_section %}
+    <h3><b>10 films and series for programmers</b></h3>
+    <img src="https://itproger.com/img/news/1_robot.jpg" class="img-thumbnail mb-1">
+    <p>Although the film is already very old, it is interesting at the same time,
+        as it tells the story of several hackers who decided to create their own OS,
+        which was later called GNU / Linux
+    </p>
+    <a href="https://itproger.com/img/news/1_robot.jpg " target="_blank">
+        <button class="btn btn-warning">look</button>
+    </a>
+{% endblock aside_news_section%}

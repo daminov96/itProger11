@@ -1,0 +1,38 @@
+{% extends 'blog/main.html' %}
+{% block main_section %}
+    <div class="alert alert-light">
+        <a href="{% url 'blog-home' %}" class="herf">come back</a>
+        <p>{{ object.text|safe }}</p>
+        <div class="row">
+            <div>
+                {% if object.avtor.profile.img %}
+                    <img src="{{ object.avtor.profile.img.url }}" alt="{{ object.avtor }}" class="user_image">
+                {% else %}
+                    <img src="/pictures/default.jpg" alt="{{ object.avtor }}" class="user_image">
+                {% endif %}
+            </div>
+            <div class="mt-2">
+                <span class="text-muted">date:{{ object.date|date:"d E Y H:i:s" }}</span>
+                <p><b>avtor:</b><a href="{% url 'user-news' object %}">{{ object.avtor }}</a></p>
+            </div>
+        </div>
+
+        {% if object.avtor %}
+            <hr>
+            <a href="{% url 'news-update' object.id%}" class="btn btn-info">refresh post</a>
+            <a href="{% url 'news-delete' object.id%}" class="btn btn-danger"> remove post</a>
+        {% endif %}
+    </div>
+{% endblock main_section %}
+{% block aside_news_section %}
+
+    <h3><b>10 films and series for programmers</b></h3>
+    <img src="https://itproger.com/img/news/1477674462.jpg" class="img-thumbnail mb-1">
+    <p>When you embark on the path of programming, you really want to watch any movies or TV shows on this topic.
+        We present you a selection of 10 films for programmers.
+    </p>
+    <a href="https://itproger.com/img/news/1477674462.jpg" target="_blank">
+        <button class="btn btn-warning">look</button>
+    </a>
+
+{% endblock aside_news_section%}

@@ -1,0 +1,61 @@
+{% extends 'blog/main.html' %}
+{% block main_section %}
+
+    {% for  post in news %}
+        <div class="alert alert-light">
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.text|striptags|truncatechars:200 }}</p>
+            <div class="row">
+                <div>
+                    {% if post.avtor.profile.img %}
+                        <img src="{{ post.avtor.profile.img.url }}" alt="{{ post.avtor }}" class="user_image">
+                    {% else %}
+                        <img src="/pictures/default.jpg" alt="{{ post.avtor }}" class="user_image">
+                    {% endif %}
+                </div>
+                <div class="mt-2">
+                    <span class="text-muted">date:{{ post.date|date:"d E Y H:i:s" }}</span>
+                    <p><b>avtor:</b> <a href="{% url 'user-news' post.avtor.username %}">{{ post.avtor }}</a></p>
+                </div>
+            </div>
+            <a href="{% url 'news-detail' post.id %}" class="btn btn-outline-warning">read more</a>
+        </div>
+    {% endfor %}
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a href="/" class="btn btn-outline-warning">to begin</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning">previous</a>
+        {% endif  %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+                <button class="btn btn-warning">{{ num }}</button>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                <a href="?page={{ num }}" class="btn btn-outline-warning">{{ num }}</a>
+            {% endif  %}
+
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-warning">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-warning">end</a>
+        {% endif %}
+    {% endif  %}
+
+{% endblock main_section %}
+
+
+{% block aside_news_section %}
+
+    <h3><b>10 films and series for programmers</b></h3>
+    <img src="https://itproger.com/img/news/1477674462.jpg" class="img-thumbnail mb-1">
+    <p>When you embark on the path of programming, you really want to watch any movies or TV shows on this topic.
+        We present you a selection of 10 films for programmers.
+    </p>
+    <a href="https://itproger.com/img/news/1477674462.jpg" target="_blank">
+        <button class="btn btn-warning">look</button>
+    </a>
+
+{% endblock aside_news_section%}

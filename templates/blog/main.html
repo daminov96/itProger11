@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }} </title>
+    <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+        <a class="navbar-brand" href="{% url 'blog-home' %}"><b>itProger</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'blog-home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'blog-contact' %}">About us</a>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-bar">
+            {% if user.is_authenticated %}
+                <a href="{% url 'news-add' %}" class="btn btn-outline-secondary">Add article</a>
+                <a href="{% url 'profile' %}" class="btn btn-outline-secondary">Profile</a>
+                <a href="{% url 'exit' %}" class="btn btn-outline-secondary">Exit</a>
+            {% else %}
+                <a href="{% url 'user' %}" class="btn btn-outline-secondary mr-2">Sign in</a>
+                <a href="{% url 'reg' %}" class="btn btn-outline-secondary">Sign up</a>
+            {% endif %}
+        </div>
+    </nav>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% if messages %}
+                    {% for mess in messages %}
+                        <div class="alert alert-success">
+                            {{ mess }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% block main_section %}
+                {% endblock %}
+            </div>
+        <aside class="col-md-4">
+            <div class="p-3 mb-3">
+                {% block aside_news_section %}
+                {% endblock %}
+            </div>
+            <div class="bg-info p-3 mb-3 rounded">
+                <h3><b>interesting articles</b></h3>
+                <p>
+                    <h4>isci beatae commodi debitis harum impedit ipsum magni mollitia nemo nulla pariatur quis sint temporibus vitae, voluptates. </h4>
+                </p>
+            </div>
+            <a href="https://udemy-images.udemy.com/course/750x422/507888_17b7_2.jpg">
+                <button class="btn btn-warning">Start leraning</button>
+            </a>
+            <div class="p-3 mb-3">
+                <img src="https://udemy-images.udemy.com/course/750x422/507888_17b7_2.jpg" class="img-thumbnail">
+            </div>
+        </aside>
+        </div>
+    </main>
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+            <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>
+            <p>New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="{% url 'blog-contact' %}">getting started guide</a>.</p>
+        </div>
+    </footer>
+    </div>
+</body>
+</html>
